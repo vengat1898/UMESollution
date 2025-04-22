@@ -4,6 +4,11 @@ import { View, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer"
+import Addmember from './components/Addmember';
+import Addsupplier from './components/Addsupplier';
+import Trackrequest from './components/Trackrequest';
+import QuickAccessHeader from './components/QuickAccessHeader';
+
 
 
 const Stack = createStackNavigator();
@@ -16,25 +21,44 @@ export default function RootLayout() {
         component={HomeScreen} 
         options={{ headerShown: false }}  
       />
+      <Stack.Screen
+          name="Addmember"
+          component={Addmember}
+          options={{ title: 'Add Member' }}
+          
+        />
+        <Stack.Screen
+          name="Addsupplier"
+          component={Addsupplier}
+          options={{ title: 'Add supplier' }}
+          
+        />
+        <Stack.Screen
+          name="Trackrequest"
+          component={Trackrequest}
+         options={({ navigation }) => ({
+           header: () => <QuickAccessHeader navigation={navigation} title="Track Request" />
+        })}
+/>
     </Stack.Navigator>
   );
 }
 
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.contentWrapper}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          <Home />
+          <Home navigation={navigation} />
         </ScrollView>
-       
       </View>
       <Footer />
     </SafeAreaView>
   );
 }
+
 
 
 
@@ -48,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   scrollContent: {
-    paddingBottom: 200, 
+    paddingBottom: 100, 
   },
 });
 

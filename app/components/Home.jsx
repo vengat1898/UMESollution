@@ -16,6 +16,19 @@ export default class Home extends Component {
     Alert.alert('Status Clicked', `You clicked on "${status}"`);
   };
 
+  handleQuickAccessPress = (label) => {
+    // Dynamically navigate to the corresponding screen and pass the title as a parameter
+    if (label === 'Add Member') {
+      this.props.navigation.navigate('Addmember', { title: 'Add Member' });
+    } else if (label === 'Add Supplier') {
+      this.props.navigation.navigate('Addsupplier', { title: 'Add Supplier' });
+    }else if (label === 'Track Request') {
+      this.props.navigation.navigate('Trackrequest', { title: 'Track Request' });
+    }
+    
+    // Add more cases as necessary
+  };
+
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -75,12 +88,16 @@ export default class Home extends Component {
     { label: 'Live Chat', icon: live_chat },
     { label: 'Daily Log', icon: daily_report },
   ].map((item, index) => (
-    <TouchableOpacity style={styles.quickItem} key={index}>
-      <View style={styles.iconWrapper}>
-        <Image source={item.icon} style={styles.quickIcon} />
-      </View>
-      <Text style={styles.quickLabel}>{item.label}</Text>
-    </TouchableOpacity>
+           <TouchableOpacity
+                key={index}
+                style={styles.quickItem}
+                onPress={() => this.handleQuickAccessPress(item.label)}
+              >
+                <View style={styles.iconWrapper}>
+                  <Image source={item.icon} style={styles.quickIcon} />
+                </View>
+                <Text style={styles.quickLabel}>{item.label}</Text>
+              </TouchableOpacity>
   ))}
 </View>
 </View>
